@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton btnAddSinhVien;
 
-    // ActivityResultLauncher để xử lý kết quả từ addSinhVien Activity (cho cả thêm mới và sửa)
+
     private ActivityResultLauncher<Intent> addOrEditSinhVienLauncher;
 
     @Override
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "Nút Thêm Sinh Viên được nhấn.");
                 Intent intent = new Intent(MainActivity.this, ThemSinhVien.class);
-                // Khi thêm mới, không cần gửi ID
                 addOrEditSinhVienLauncher.launch(intent);
             }
         });
@@ -94,21 +93,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
-                    case 0: // Xem chi tiết
+                    case 0:
                         Log.d(TAG, "Chọn Xem chi tiết cho: " + sinhVien.getHoTen());
                         Intent detailIntent = new Intent(MainActivity.this, ThongTinChiTiet.class);
                         detailIntent.putExtra("sinhvien_chitiet", sinhVien);
                         startActivity(detailIntent);
                         break;
-                    case 1: // Chỉnh sửa
+                    case 1:
                         Log.d(TAG, "Chọn Chỉnh sửa cho: " + sinhVien.getHoTen());
                         Intent editIntent = new Intent(MainActivity.this, ThemSinhVien.class);
-                        // Gửi ID của sinh viên cần sửa sang addSinhVien Activity
-                        // addSinhVien Activity cần được thiết kế để nhận ID này và tải dữ liệu sinh viên lên form
                         editIntent.putExtra("STUDENT_ID_TO_EDIT", sinhVien.getId());
                         addOrEditSinhVienLauncher.launch(editIntent);
                         break;
-                    case 2: // Xóa
+                    case 2:
                         Log.d(TAG, "Chọn Xóa cho: " + sinhVien.getHoTen());
                         showDeleteConfirmationDialog(sinhVien);
                         break;

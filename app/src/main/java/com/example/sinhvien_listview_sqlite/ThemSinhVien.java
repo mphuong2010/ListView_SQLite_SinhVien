@@ -140,7 +140,7 @@ public class ThemSinhVien extends AppCompatActivity {
 
     private void loadStudentDataForEditing(int studentId) {
         Log.d(TAG, "Đang tải dữ liệu để sửa cho sinh viên ID: " + studentId);
-        currentEditingStudent = databaseHelper.getStudentById(studentId); // Cần có phương thức này trong Database.java
+        currentEditingStudent = databaseHelper.getStudentById(studentId);
         if (currentEditingStudent != null) {
             edtHoTen.setText(currentEditingStudent.getHoTen());
             edtMssv.setText(currentEditingStudent.getMssv());
@@ -148,7 +148,7 @@ public class ThemSinhVien extends AppCompatActivity {
             edtNgaySinh.setText(currentEditingStudent.getNgaySinh());
             edtsodienthoai.setText(currentEditingStudent.getSodienthoai());
 
-            currentAvatarPath = currentEditingStudent.getAvatarPath(); // Lấy đường dẫn ảnh hiện tại của sinh viên
+            currentAvatarPath = currentEditingStudent.getAvatarPath();
 
             if (currentAvatarPath != null && !currentAvatarPath.isEmpty()) {
                 File imgFile = new File(currentAvatarPath);
@@ -159,12 +159,12 @@ public class ThemSinhVien extends AppCompatActivity {
                     tvChooseAvatar.setText("Đổi ảnh");
                 } else {
                     Log.w(TAG, "File ảnh không tồn tại để sửa: " + currentAvatarPath);
-                    imgAvatar.setImageResource(R.mipmap.ic_launcher_round); // Ảnh mặc định
+                    imgAvatar.setImageResource(R.mipmap.ic_launcher_round);
                     imgAvatar.setVisibility(View.VISIBLE);
                     tvChooseAvatar.setText("Chọn ảnh");
                 }
             } else {
-                imgAvatar.setImageResource(R.mipmap.ic_launcher_round); // Ảnh mặc định
+                imgAvatar.setImageResource(R.mipmap.ic_launcher_round);
                 imgAvatar.setVisibility(View.VISIBLE);
                 tvChooseAvatar.setText("Chọn ảnh");
             }
@@ -189,7 +189,6 @@ public class ThemSinhVien extends AppCompatActivity {
         }
 
         if (isEditMode && currentEditingStudent != null) {
-            // CHẾ ĐỘ CẬP NHẬT
             currentEditingStudent.setHoTen(hoTen);
             currentEditingStudent.setMssv(mssv);
             currentEditingStudent.setChuyenNganh(chuyenNganh);
@@ -197,7 +196,7 @@ public class ThemSinhVien extends AppCompatActivity {
             currentEditingStudent.setSodienthoai(sodienthoai);
             currentEditingStudent.setAvatarPath(currentAvatarPath);
 
-            int rowsAffected = databaseHelper.updateSinhVien(currentEditingStudent); // Cần có phương thức này trong Database.java
+            int rowsAffected = databaseHelper.updateSinhVien(currentEditingStudent);
             if (rowsAffected > 0) {
                 Toast.makeText(this, "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
                 setResult(Activity.RESULT_OK);
@@ -206,12 +205,11 @@ public class ThemSinhVien extends AppCompatActivity {
                 Toast.makeText(this, "Lỗi khi cập nhật thông tin. MSSV có thể bị trùng hoặc không có thay đổi.", Toast.LENGTH_LONG).show();
             }
         } else {
-            // CHẾ ĐỘ THÊM MỚI
             SinhVien sv = new SinhVien(0, hoTen, mssv, currentAvatarPath, chuyenNganh, ngaySinh, sodienthoai);
             long newRowId = databaseHelper.addSinhVien(sv);
             if (newRowId != -1) {
                 Toast.makeText(this, "Đã thêm sinh viên thành công!", Toast.LENGTH_SHORT).show();
-                setResult(Activity.RESULT_OK); // Báo cho MainActivity biết để làm mới danh sách
+                setResult(Activity.RESULT_OK);
                 finish();
             } else {
                 Toast.makeText(this, "Lỗi khi thêm sinh viên. MSSV có thể đã tồn tại.", Toast.LENGTH_LONG).show();
@@ -225,7 +223,6 @@ public class ThemSinhVien extends AppCompatActivity {
         pickImageLauncher.launch(intent);
     }
 
-    // Lưu ảnh được chọn vào bộ nhớ trong của ứng dụng
     private String saveImageToInternalStorage(Uri uri) throws IOException {
         InputStream inputStream = getContentResolver().openInputStream(uri);
         if (inputStream == null) {
@@ -253,7 +250,7 @@ public class ThemSinhVien extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish(); // Hoặc onBackPressed();
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

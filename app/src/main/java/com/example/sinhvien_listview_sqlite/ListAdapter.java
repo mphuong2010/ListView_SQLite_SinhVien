@@ -54,7 +54,6 @@ public class ListAdapter extends ArrayAdapter<SinhVien> {
             SinhVien sinhVien = sinhVienList.get(position);
 
             if (sinhVien != null) {
-                // Hiển thị thông tin văn bản
                 viewHolder.tvHoTen.setText(sinhVien.getHoTen() != null ? sinhVien.getHoTen() : "N/A");
                 viewHolder.tvMssv.setText(sinhVien.getMssv() != null ? sinhVien.getMssv() : "N/A");
 

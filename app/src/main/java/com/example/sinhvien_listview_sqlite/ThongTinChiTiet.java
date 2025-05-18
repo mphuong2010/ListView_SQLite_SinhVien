@@ -43,14 +43,12 @@ public class ThongTinChiTiet extends AppCompatActivity {
         SinhVien sv = (SinhVien) getIntent().getSerializableExtra("sinhvien_chitiet");
 
         if (sv != null) {
-            // Hiển thị thông tin văn bản
             tvHoTenChiTiet.setText(sv.getHoTen() != null ? sv.getHoTen() : "N/A");
             tvMssvChiTiet.setText(sv.getMssv() != null ?  sv.getMssv() : "N/A");
             tvChuyenNganh.setText(sv.getChuyenNganh() != null ?  sv.getChuyenNganh() : "N/A");
             tvNgaySinh.setText(sv.getNgaySinh() != null ?  sv.getNgaySinh() : "N/A");
             tvsodienthoai.setText(sv.getSodienthoai() != null ?  sv.getSodienthoai() : "N/A");
 
-            // Lấy đường dẫn ảnh và hiển thị ảnh
             String avatarPath = sv.getAvatarPath();
             if (avatarPath != null && !avatarPath.isEmpty()) {
                 File imgFile = new File(avatarPath);
@@ -85,7 +83,7 @@ public class ThongTinChiTiet extends AppCompatActivity {
         }
     }
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) { // Thêm @NonNull
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
